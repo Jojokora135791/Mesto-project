@@ -1,0 +1,10 @@
+.profile__author-block {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+@media screen and (max-width: 800px){
+  .profile__author-block {
+    align-items: end;
+    }
+}
