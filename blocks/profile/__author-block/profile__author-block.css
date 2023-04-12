@@ -5,6 +5,12 @@
 }
 @media screen and (max-width: 800px){
   .profile__author-block {
+    margin-left: 42px;
     align-items: end;
+    }
+}
+@media screen and (max-width: 540px){
+  .profile__author-block {
+    margin-left: 28px;
     }
 }
