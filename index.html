@@ -32,12 +32,9 @@
       </section>
 
       <section class="elements">
-
         <template id="elementTemplate">
           <article class="element">
-            <img
-              class="element__photo"
-            />
+            <img class="element__photo" />
             <div class="element__place">
               <h3 class="element__place-name"></h3>
               <button class="element__like" type="button"></button>
@@ -51,46 +48,47 @@
       <p class="footer__author">© 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
+    <section class="popup-edit-profile">
       <div class="popup__container">
         <form class="popup__form" name="profile">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input
             type="text"
-            class="popup__input popup__input_type_author"
+            class="popup__input"
             name="author"
           />
           <input
             type="text"
-            class="popup__input popup__input_type_job"
+            class="popup__input"
             name="job"
           />
           <button class="popup__button-save" type="submit">Сохранить</button>
         </form>
-        <button class="popup__button-close"></button>
+        <button class="popup__button-close popup__button-close_type_edit-profile"></button>
       </div>
     </section>
 
     <section class="popup-add-author">
       <div class="popup__container">
-        <form class="popup__form" name="profile">
-          <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="place">
+          <h2 class="popup__title">Новое место</h2>
           <input
             type="text"
-            class="popup__input popup__input_type_author"
-            name="author"
+            class="popup__input popup__input_type_place-name"
+            name="place-name"
+            placeholder="Название"
           />
           <input
             type="text"
-            class="popup__input popup__input_type_job"
-            name="job"
+            class="popup__input popup__input_type_photo"
+            name="photo"
+            placeholder="Ссылка на картинку"
           />
-          <button class="popup__button-save" type="submit">Сохранить</button>
+          <button class="popup__button-create" type="submit">Создать</button>
+          <button class="popup__button-close popup__button-close_type_add-author"></button>
         </form>
-        <button class="popup__button-close"></button>
       </div>
     </section>
-
 
     <script src="./scripts/index.js"></script>
   </body>
