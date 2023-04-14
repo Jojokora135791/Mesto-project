@@ -8,34 +8,28 @@ let buttonAddAuthor = document.querySelector('.profile__add-button')
 
 // Объявление данных попапа editProfile
 let popupEditProfile = document.querySelector('.popup-edit-profile')
-let popupEditProfileForm = popupEditProfile.querySelector('.popup__form[name=profile]')
-let userAuthorInput = popupEditProfile.querySelector('.popup__input[name=author]')
-let userJobInput = popupEditProfile.querySelector('.popup__input[name=job]')
-let popupEditProfileButtonSaveForm = popupEditProfile.querySelector('.popup__button-save')
-let popupEditProfileButtonClose = popupEditProfile.querySelector('.popup__button-close_type_edit-profile')
+let popupEditProfileForm = document.querySelector('.popup__form[name=profile]')
+let userAuthorInput = document.querySelector('.popup__input[name=author]')
+let userJobInput = document.querySelector('.popup__input[name=job]')
+let popupEditProfileButtonSaveForm = document.querySelector('.popup__button-save')
+let popupEditProfileButtonClose = document.querySelector('.popup__button-close_type_edit-profile')
 
 // Объявление данных попапа addAuthor
 let popupAddAuthor = document.querySelector('.popup-add-author')
-let popupFormAddAuthor = popupAddAuthor.querySelector('.popup__form[name=place]')
-let popupAddAuthorButtonSaveForm = popupEditProfile.querySelector('.popup__button-create')
-let popupAddAuthorButtonClose = popupAddAuthor.querySelector('.popup__button-close_type_add-author')
+let popupFormAddAuthor = document.querySelector('.popup__form[name=place]')
+let popupAddAuthorButtonSaveForm = document.querySelector('.popup__button-create')
+let popupAddAuthorButtonClose = document.querySelector('.popup__button-close_type_add-author')
 
 
 
 // Открытие попапа 'Редактировать'
-function editProfile() {
-  userAuthorInput.value = userAuthorProfile.textContent
-  userJobInput.value = userJobProfile.textContent 
-  popupEditProfile.classList.add('popup_opened')
+function editProfile(popupElement) {
+  popupElement.classList.add('popup_opened')
 }
 
 // Закрытие попапа 'Редактировать'
-function closePopupEditProfile() {
-  popupEditProfile.classList.remove('popup_opened')
-}
-
-function addAuthor() {
-  popupAddAuthor.classList.add('popup_opened')
+function closePopupEditProfile(popupElement) {
+  popupElement.classList.remove('popup_opened')
 }
 
 // function closeAuthor() {
@@ -43,9 +37,20 @@ function addAuthor() {
 // }
 
 
-buttonEditProfile.addEventListener('click', editProfile)
-popupEditProfileButtonClose.addEventListener('click', closePopupEditProfile)
-buttonAddAuthor.addEventListener('click', addAuthor)
+buttonEditProfile.addEventListener('click', () => {
+  userAuthorInput.value = userAuthorProfile.textContent
+  userJobInput.value = userJobProfile.textContent
+  editProfile(popupEditProfile)
+})
+popupEditProfileButtonClose.addEventListener('click', () => closePopupEditProfile(popupEditProfile))
+buttonAddAuthor.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  editProfile(popupAddAuthor)
+})
+popupAddAuthorButtonClose.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closePopupEditProfile(popupAddAuthor)
+})
 
 
 // Сохранить данные в попапе
@@ -55,6 +60,8 @@ function saveProfile(evt) {
   userJobProfile.textContent = userJobInput.value;
   closePopupEditProfile(popupEditProfile);
 }
+
+// Сохранить данные в попапе
 
 popupEditProfileForm.addEventListener('submit', saveProfile);
 
