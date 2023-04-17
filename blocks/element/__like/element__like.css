@@ -6,9 +6,10 @@
   color: #000;
   background: url(../../../images/element-like.svg) no-repeat center;
   background-size: 100%;
-  transition: opacity .2s linear;
+  transition: opacity background-image .2s linear;
   cursor: pointer;
 }
 .element__like:hover {
+  background-image: url(../../../../images/button-like.svg);
   opacity: 0.6;
 }

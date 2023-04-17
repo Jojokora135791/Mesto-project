@@ -1,112 +1,156 @@
-// Объявление всех переменных
+/*--------------Объявление переменных-----------------------*/
 
 // Объявление данных profile
-let userAuthorProfile = document.querySelector('.profile__author')
-let userJobProfile = document.querySelector('.profile__job')
-let buttonEditProfile = document.querySelector('.profile__button-edit')
-let buttonAddAuthor = document.querySelector('.profile__add-button')
+const userAuthorProfile = document.querySelector(".profile__author")
+const userJobProfile = document.querySelector(".profile__job")
+const buttonEditProfile = document.querySelector(".profile__button-edit")
+const buttonAddAuthor = document.querySelector(".profile__add-button")
 
 // Объявление данных попапа editProfile
-let popupEditProfile = document.querySelector('.popup-edit-profile')
-let popupEditProfileForm = document.querySelector('.popup__form[name=profile]')
-let userAuthorInput = document.querySelector('.popup__input[name=author]')
-let userJobInput = document.querySelector('.popup__input[name=job]')
-let popupEditProfileButtonSaveForm = document.querySelector('.popup__button-save')
-let popupEditProfileButtonClose = document.querySelector('.popup__button-close_type_edit-profile')
+const popupEditProfile = document.querySelector(".popup_type_edit-profile")
+const popupEditProfileForm = document.querySelector(".popup__form[name=profile]")
+const userAuthorInput = document.querySelector(".popup__input[name=author]")
+const userJobInput = document.querySelector(".popup__input[name=job]")
+const popupEditProfileButtonSaveForm = document.querySelector(
+  ".popup__button-save"
+)
+const popupEditProfileButtonClose = document.querySelector(
+  ".popup__button-close_type_edit-profile"
+)
 
 // Объявление данных попапа addAuthor
-let popupAddAuthor = document.querySelector('.popup-add-author')
-let popupFormAddAuthor = document.querySelector('.popup__form[name=place]')
-let popupAddAuthorButtonSaveForm = document.querySelector('.popup__button-create')
-let popupAddAuthorButtonClose = document.querySelector('.popup__button-close_type_add-author')
+const popupAddAuthor = document.querySelector(".popup_type_add-author")
+const placeNameInput = document.querySelector(".popup__input[name=place-name]")
+const linkPhotoInput = document.querySelector(".popup__input[name=photo]")
+const popupFormAddAuthor = document.querySelector(".popup__form[name=place]")
+const popupAddAuthorButtonSaveForm = document.querySelector(
+  ".popup__button-create"
+)
+const popupAddAuthorButtonClose = document.querySelector(
+  ".popup__button-close_type_add-author"
+)
 
+// Обявление данных попапа Zoom
+const popupOpenImage = document.querySelector("popup_type_open-card")
+const popupOpenImageElementPhoto = document.querySelector("popup__photo")
+const popupOpenImageElementName = document.querySelector("popup__place-name")
+const popupOpenImageButtonClose = document.querySelector(
+  ".popup__button-close popup__button-close_type_open-card"
+)
 
+// Объявление данных карточек
+const sectionElements = document.querySelector(".elements")
 
-// Открытие попапа 'Редактировать'
-function editProfile(popupElement) {
-  popupElement.classList.add('popup_opened')
+/*------------------Основные функции-----------------------*/
+
+// Открытие попапа
+function openPopup(popupElement) {
+  popupElement.classList.add("popup_opened")
 }
 
-// Закрытие попапа 'Редактировать'
-function closePopupEditProfile(popupElement) {
-  popupElement.classList.remove('popup_opened')
+// Закрытие попапа
+function сlosePopup(popupElement) {
+  popupElement.classList.remove("popup_opened")
 }
-
-// function closeAuthor() {
-//   popupAddAuthor.classList.remove('popup_opened')
-// }
-
-
-buttonEditProfile.addEventListener('click', () => {
-  userAuthorInput.value = userAuthorProfile.textContent
-  userJobInput.value = userJobProfile.textContent
-  editProfile(popupEditProfile)
-})
-popupEditProfileButtonClose.addEventListener('click', () => closePopupEditProfile(popupEditProfile))
-buttonAddAuthor.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  editProfile(popupAddAuthor)
-})
-popupAddAuthorButtonClose.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  closePopupEditProfile(popupAddAuthor)
-})
-
 
 // Сохранить данные в попапе
 function saveProfile(evt) {
-  evt.preventDefault();
-  userAuthorProfile.textContent = userAuthorInput.value;
-  userJobProfile.textContent = userJobInput.value;
-  closePopupEditProfile(popupEditProfile);
+  evt.preventDefault()
+  userAuthorProfile.textContent = userAuthorInput.value
+  userJobProfile.textContent = userJobInput.value
+  сlosePopup(popupEditProfile)
 }
 
-// Сохранить данные в попапе
+// Открытие попапа Zoom
+function handleImgPopup(evt) {
+  popupOpenImageElementPhoto.src = evt.target.src
+  popupOpenImageElementPhoto.alt = evt.target.alt
+  popupOpenImageElementName.textContent = evt.target.alt
+  openPopup(popupOpenImage)
+}
 
-popupEditProfileForm.addEventListener('submit', saveProfile);
-
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const sectionElements = document.querySelector('.elements');
+/*------------------------Функция создания карточки--------------------------*/
 
 const createElement = (element) => {
-  const newElement = document.querySelector('#elementTemplate').content.cloneNode(true);
-  const elementName = newElement.querySelector('.element__place-name');
-  elementName.textContent = element.name;
+  // Объявление переменных карточки
+  const newElement = document
+    .querySelector("#elementTemplate")
+    .content.cloneNode(true)
+  const elementName = newElement.querySelector(".element__place-name")
+  const elementPhoto = newElement.querySelector(".element__photo")
+  const elementButtonPhoto = newElement.querySelector(".element__button-photo")
+  const elementButtonLike = newElement.querySelector(".element__like")
+  const elementButtonDelete = newElement.querySelector(".element__delete")
 
-  const elementPhoto = newElement.querySelector('.element__photo')
-  elementPhoto.setAttribute('src', element.link)
+  // Слушатель попапа Zoom
+  elementButtonPhoto.addEventListener("click", handleImgPopup)
 
-  sectionElements.append(newElement);
-};
+  // Слушатель лайка
+  elementButtonLike.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("element__like_active")
+  })
 
-initialCards.forEach(createElement);
+  // Функция и слушатель удаление карточки
+  function removeButton(item) {
+    const chooseCard = item.closest(".element")
+    chooseCard.remove()
+  }
+  elementButtonDelete.addEventListener("click", () =>
+    removeButton(elementButtonDelete)
+  )
 
+  // Заполнение карточки данными из массива
+  elementName.textContent = element.name
+  elementPhoto.setAttribute("src", element.link)
+  elementPhoto.setAttribute("alt", element.name)
 
+  return newElement
+}
 
+// Вызов массива данных
+initialCards.forEach(createCard)
+
+// Создание карточки из массива
+function createCard(card) {
+  const createNewCard = createElement(card)
+  sectionElements.prepend(createNewCard)
+}
+
+// Создание карточки пользователем
+const handleFormSubmitCard = (evt) => {
+  evt.preventDefault()
+
+  const newCard = {
+    name: placeNameInput.value,
+    link: linkPhotoInput.value,
+  }
+
+  createCard(newCard)
+  сlosePopup(popupAddAuthor)
+}
+
+/*------------------------Слушатели--------------------------*/
+
+buttonEditProfile.addEventListener("click", () => {
+  userAuthorInput.value = userAuthorProfile.textContent
+  userJobInput.value = userJobProfile.textContent
+  openPopup(popupEditProfile)
+})
+
+popupEditProfileButtonClose.addEventListener("click", () =>
+  сlosePopup(popupEditProfile)
+)
+
+buttonAddAuthor.addEventListener("click", (evt) => {
+  evt.preventDefault()
+  openPopup(popupAddAuthor)
+})
+
+popupAddAuthorButtonClose.addEventListener("click", (evt) => {
+  evt.preventDefault()
+  сlosePopup(popupAddAuthor)
+})
+
+popupEditProfileForm.addEventListener("submit", saveProfile)
+
+popupAddAuthor.addEventListener("submit", handleFormSubmitCard)
