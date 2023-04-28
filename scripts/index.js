@@ -31,11 +31,11 @@ const popupAddAuthorButtonClose = document.querySelector(
 )
 
 // Обявление данных попапа Zoom
-const popupOpenImage = document.querySelector("popup_type_open-card")
-const popupOpenImageElementPhoto = document.querySelector("popup__photo")
-const popupOpenImageElementName = document.querySelector("popup__place-name")
+const popupOpenImage = document.querySelector(".popup_type_open-card")
+const popupOpenImageElementPhoto = document.querySelector(".popup__photo")
+const popupOpenImageElementName = document.querySelector(".popup__place-name")
 const popupOpenImageButtonClose = document.querySelector(
-  ".popup__button-close popup__button-close_type_open-card"
+  ".popup__button-close_type_open-card"
 )
 
 // Объявление данных карточек
@@ -84,6 +84,11 @@ const createElement = (element) => {
 
   // Слушатель попапа Zoom
   elementButtonPhoto.addEventListener("click", handleImgPopup)
+  
+  popupOpenImageButtonClose.addEventListener("click", (evt) => {
+    evt.preventDefault()
+    сlosePopup(popupOpenImage)
+  })
 
   // Слушатель лайка
   elementButtonLike.addEventListener("click", (evt) => {
