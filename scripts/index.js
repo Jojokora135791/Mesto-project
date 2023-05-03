@@ -24,7 +24,7 @@ const placeNameInput = document.querySelector(".popup__input[name=place-name]")
 const linkPhotoInput = document.querySelector(".popup__input[name=photo]")
 const popupFormAddAuthor = document.querySelector(".popup__form[name=place]")
 const popupAddAuthorButtonSaveForm = document.querySelector(
-  ".popup__button-create"
+  ".popup__button-submit_type_create"
 )
 const popupAddAuthorButtonClose = document.querySelector(
   ".popup__button-close_type_add-author"
@@ -68,10 +68,15 @@ function handleImgPopup(evt) {
   popupOpenImageElementName.textContent = evt.target.alt
   openPopup(popupOpenImage)
 }
+  // Удаление карточки
+  function removeButton(item) {
+    const chooseCard = item.closest(".element")
+    chooseCard.remove()
+  }
 
-/*------------------------Функция создания карточки--------------------------*/
+/*-------------------Функция создания карточки----------------------*/
 
-const createElement = (element) => {
+function createElement (element) {
   // Объявление переменных карточки
   const newElement = document
     .querySelector("#elementTemplate")
@@ -84,22 +89,13 @@ const createElement = (element) => {
 
   // Слушатель попапа Zoom
   elementButtonPhoto.addEventListener("click", handleImgPopup)
-  
-  popupOpenImageButtonClose.addEventListener("click", (evt) => {
-    evt.preventDefault()
-    сlosePopup(popupOpenImage)
-  })
 
   // Слушатель лайка
   elementButtonLike.addEventListener("click", (evt) => {
     evt.target.classList.toggle("element__like_active")
   })
 
-  // Функция и слушатель удаление карточки
-  function removeButton(item) {
-    const chooseCard = item.closest(".element")
-    chooseCard.remove()
-  }
+  // Cлушатель удаления карточки
   elementButtonDelete.addEventListener("click", () =>
     removeButton(elementButtonDelete)
   )
@@ -132,6 +128,9 @@ const handleFormSubmitCard = (evt) => {
 
   createCard(newCard)
   сlosePopup(popupAddAuthor)
+
+  placeNameInput.value = ''
+  linkPhotoInput.value =''
 }
 
 /*------------------------Слушатели--------------------------*/
@@ -146,14 +145,17 @@ popupEditProfileButtonClose.addEventListener("click", () =>
   сlosePopup(popupEditProfile)
 )
 
-buttonAddAuthor.addEventListener("click", (evt) => {
-  evt.preventDefault()
+buttonAddAuthor.addEventListener("click", () => {
   openPopup(popupAddAuthor)
 })
 
-popupAddAuthorButtonClose.addEventListener("click", (evt) => {
-  evt.preventDefault()
+popupAddAuthorButtonClose.addEventListener("click", () => {
   сlosePopup(popupAddAuthor)
+})
+
+popupOpenImageButtonClose.addEventListener("click", (evt) => {
+  evt.preventDefault()
+  сlosePopup(popupOpenImage)
 })
 
 popupEditProfileForm.addEventListener("submit", saveProfile)
