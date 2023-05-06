@@ -11,9 +11,6 @@ const popupEditProfile = document.querySelector(".popup_type_edit-profile")
 const popupEditProfileForm = document.querySelector(".popup__form[name=profile]")
 const userAuthorInput = document.querySelector(".popup__input[name=author]")
 const userJobInput = document.querySelector(".popup__input[name=job]")
-const popupEditProfileButtonSaveForm = document.querySelector(
-  ".popup__button-save"
-)
 const popupEditProfileButtonClose = document.querySelector(
   ".popup__button-close_type_edit-profile"
 )
@@ -23,9 +20,6 @@ const popupAddAuthor = document.querySelector(".popup_type_add-author")
 const placeNameInput = document.querySelector(".popup__input[name=place-name]")
 const linkPhotoInput = document.querySelector(".popup__input[name=photo]")
 const popupFormAddAuthor = document.querySelector(".popup__form[name=place]")
-const popupAddAuthorButtonSaveForm = document.querySelector(
-  ".popup__button-submit_type_create"
-)
 const popupAddAuthorButtonClose = document.querySelector(
   ".popup__button-close_type_add-author"
 )
@@ -141,22 +135,71 @@ buttonEditProfile.addEventListener("click", () => {
   openPopup(popupEditProfile)
 })
 
+
+
+// Закрытие попапа editProfile через клик на buttonClose
 popupEditProfileButtonClose.addEventListener("click", () =>
   сlosePopup(popupEditProfile)
 )
+
+// Закрытие попапа editProfile через клик на оверлей
+popupEditProfile.addEventListener('click', (evt) => {
+  if (evt.currentTarget === evt.target) {
+    сlosePopup(popupEditProfile)
+  }
+})
+
+// Закрытие попапа editProfile через esc
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    сlosePopup(popupEditProfile)
+  }
+})
+
 
 buttonAddAuthor.addEventListener("click", () => {
   openPopup(popupAddAuthor)
 })
 
+
+// Закрытие попапа addAuthor через клик на buttonClose
 popupAddAuthorButtonClose.addEventListener("click", () => {
   сlosePopup(popupAddAuthor)
 })
 
-popupOpenImageButtonClose.addEventListener("click", (evt) => {
-  evt.preventDefault()
+// Закрытие попапа addAuthor через клик на оверлей
+popupAddAuthor.addEventListener('click', (evt) => {
+  if (evt.currentTarget === evt.target) {
+    сlosePopup(popupAddAuthor)
+  }
+})
+
+// Закрытие попапа addAuthor через esc
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    сlosePopup(popupAddAuthor)
+  }
+})
+
+// Закрытие попапа zoomCard через клик на buttonClose
+popupOpenImageButtonClose.addEventListener("click", () => {
   сlosePopup(popupOpenImage)
 })
+
+// Закрытие попапа zoomCard через клик на оверлей
+popupOpenImage.addEventListener('click', (evt) => {
+  if (evt.currentTarget === evt.target) {
+    сlosePopup(popupOpenImage)
+  }
+})
+
+// Закрытие попапа zoomCard через esc
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    сlosePopup(popupOpenImage)
+  }
+})
+
 
 popupEditProfileForm.addEventListener("submit", saveProfile)
 

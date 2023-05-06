@@ -40,7 +40,7 @@ const hideInputError = (errorTextElement, activeErrorClass) => {
   errorTextElement.classList.remove(activeErrorClass)
 }
 
-const checkInputValidity = (inputList, input, errorClassTemplate, activeErrorClass) => {
+const checkInputValidity = (input, errorClassTemplate, activeErrorClass) => {
   const errorTextElement = document.querySelector(`${errorClassTemplate}${input.name}`)
   if (!input.validity.valid) {
     showInputError(input, errorTextElement, activeErrorClass);
@@ -55,15 +55,17 @@ const setEventListeners = (formList, config) => {
     
     const inputList = form.querySelectorAll(config.inputSelector);
     const buttonElement = form.querySelector(config.buttonSelector);
+
+    toggleButtonState(inputList, buttonElement, config.buttonErrorClass);
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
     });
 
-
     inputList.forEach((input) => {
       input.addEventListener("input", () => {
 
-        checkInputValidity(inputList, input, config.errorClassTemplate, config.activeErrorClass);
+        checkInputValidity(input, config.errorClassTemplate, config.activeErrorClass);
 
         toggleButtonState(inputList, buttonElement, config.buttonErrorClass);
 
@@ -76,6 +78,7 @@ const setEventListeners = (formList, config) => {
 };
 
 const enableValidation = (config) => {
+  
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   setEventListeners(formList, config);

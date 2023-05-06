@@ -33,6 +33,7 @@
 
       <section class="elements">
         <template id="elementTemplate">
+
           <article class="element">
             <button class="element__button-photo" type="button">
               <img class="element__photo" />
@@ -43,6 +44,7 @@
               <button class="element__like" type="button"></button>
             </div>
           </article>
+
         </template>
       </section>
     </main>
@@ -125,22 +127,17 @@
           </label>
           
           <button class="popup__button-submit popup__button-submit_type_create" type="submit">Создать</button>
-          <button class="popup__button-close popup__button-close_type_add-author"></button>
+          <button class="popup__button-close popup__button-close_type_add-author" type="button"></button>
         </form>
       </div>
     </div>
   
     <div class="popup popup_type_open-card">
-      <div class="popup__card">
-        <img
-          class="popup__photo"
-        />
-        <h3 class="popup__place-name"></h3>
-        <button
-          class="popup__button-close popup__button-close_type_open-card"
-          type="button"
-        ></button>
-      </div>
+        <div class="popup__card">
+          <img class="popup__photo"/>
+          <h3 class="popup__place-name"></h3>
+          <button class="popup__button-close popup__button-close_type_open-card" type="button"></button>
+        </div>
     </div>
 
     <script src="./scripts/array.js"></script>
