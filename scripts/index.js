@@ -62,53 +62,16 @@ function handleImgPopup(evt) {
   popupOpenImageElementName.textContent = evt.target.alt
   openPopup(popupOpenImage)
 }
-  // Удаление карточки
-  function removeButton(item) {
-    const chooseCard = item.closest(".element")
-    chooseCard.remove()
-  }
-
-/*-------------------Функция создания карточки----------------------*/
-
-function createElement (element) {
-  // Объявление переменных карточки
-  const newElement = document
-    .querySelector("#elementTemplate")
-    .content.cloneNode(true)
-  const elementName = newElement.querySelector(".element__place-name")
-  const elementPhoto = newElement.querySelector(".element__photo")
-  const elementButtonPhoto = newElement.querySelector(".element__button-photo")
-  const elementButtonLike = newElement.querySelector(".element__like")
-  const elementButtonDelete = newElement.querySelector(".element__delete")
-
-  // Слушатель попапа Zoom
-  elementButtonPhoto.addEventListener("click", handleImgPopup)
-
-  // Слушатель лайка
-  elementButtonLike.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("element__like_active")
-  })
-
-  // Cлушатель удаления карточки
-  elementButtonDelete.addEventListener("click", () =>
-    removeButton(elementButtonDelete)
-  )
-
-  // Заполнение карточки данными из массива
-  elementName.textContent = element.name
-  elementPhoto.setAttribute("src", element.link)
-  elementPhoto.setAttribute("alt", element.name)
-
-  return newElement
-}
 
 // Вызов массива данных
 initialCards.forEach(createCard)
 
 // Создание карточки из массива
 function createCard(card) {
-  const createNewCard = createElement(card)
-  sectionElements.prepend(createNewCard)
+
+  const newCard = new Card(card, '#elementTemplate', handleImgPopup)
+  const cardElement = newCard.generateCard();
+  sectionElements.prepend(cardElement)
 }
 
 // Создание карточки пользователем
@@ -204,3 +167,4 @@ document.addEventListener('keydown', (evt) => {
 popupEditProfileForm.addEventListener("submit", saveProfile)
 
 popupAddAuthor.addEventListener("submit", handleFormSubmitCard)
+
