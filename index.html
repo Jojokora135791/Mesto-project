@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./pages/pages.css" />
   </head>
   <body class="page">
+
     <header class="header">
       <div class="header__logo"></div>
     </header>
@@ -59,13 +60,13 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <label class="popup__label">
             <input
+            name="author"
             type="text"
             class="popup__input"
-            name="author"
             placeholder="Имя автора"
-            required
             minlength="2"
             maxlength="40"
+            required
             novalidate
             />
             <span class="popup__input-error popup__input-error_type_author"></span>
@@ -73,23 +74,21 @@
 
           <label class="popup__label">
             <input
+            name="job"
             type="text"
             class="popup__input"
-            name="job"
             placeholder="Занятие автора"
-            required
             minlength="2"
             maxlength="200"
+            required
             novalidate
             />
             <span class="popup__input-error popup__input-error_type_job"></span>
           </label>
-
           <button class="popup__button-submit popup__button-submit_type_save" type="submit">Сохранить</button>
         </form>
         <button
-          class="popup__button-close popup__button-close_type_edit-profile"
-        ></button>
+          class="popup__button-close popup__button-close_type_edit-profile"></button>
       </div>
     </div>
 
@@ -139,10 +138,7 @@
           <button class="popup__button-close popup__button-close_type_open-card" type="button"></button>
         </div>
     </div>
-
-    <script src="./scripts/array.js"></script>
-    <script src ="./scripts/Card.js"></script>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validate.js"></script>
+    
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

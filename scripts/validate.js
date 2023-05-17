@@ -1,9 +1,11 @@
-class FormValidation {
+export class FormValidation {
   constructor(config) {
     this._formList = Array.from(document.querySelectorAll(config.formSelector));
     this._buttonErrorClass = config.buttonErrorClass;
     this._errorClassTemplate = config.errorClassTemplate;
     this._activeErrorClass = config.activeErrorClass;
+    this._inputSelector = config.inputSelector;
+    this._buttonSelector = config.buttonSelector;
   }
   
   _disableButton = () => {
@@ -15,7 +17,7 @@ class FormValidation {
   
   _enableButton = () => {
     if (this._buttonElement !== null) {
-      this._buttonElement.classList.remove(buttonErrorClass);
+      this._buttonElement.classList.remove(this._buttonErrorClass);
       this._buttonElement.disabled = false;
     }
   
@@ -62,8 +64,8 @@ class FormValidation {
 
     this._formList.forEach((form) => {
     
-      this._inputList = form.querySelectorAll(config.inputSelector);
-      this._buttonElement = form.querySelector(config.buttonSelector);
+      this._inputList = form.querySelectorAll(this._inputSelector);
+      this._buttonElement = form.querySelector(this._buttonSelector);
       
       this._toggleButtonState();
   
@@ -75,13 +77,13 @@ class FormValidation {
 
         input.addEventListener("input", () => {
   
-          _checkInputValidity(input);
+          this._checkInputValidity(input);
   
           this._toggleButtonState();
   
         });
-  
       });
+      
   
     });
   
@@ -92,14 +94,4 @@ class FormValidation {
   }
 
 }
-
-const forms = new FormValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  errorClassTemplate: '.popup__input-error_type_',
-  activeErrorClass: '.popup__input-error',
-  buttonSelector: '.popup__button-submit', 
-  buttonErrorClass: 'popup__button-submit_disabled'
-});
-const formValid = forms.enableValidation(); 
 
