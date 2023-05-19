@@ -3,8 +3,6 @@ import {initialCards,selectors} from './array.js';
 import {Card} from './Card.js';
 import {FormValidation} from './validate.js';
 
-
-
 /*--------------Объявление переменных-----------------------*/
 // Объявление данных profile
 const userAuthorProfile = document.querySelector(".profile__author")
@@ -24,10 +22,7 @@ const popupEditProfileButtonClose = document.querySelector(
 const popupAddAuthor = document.querySelector(".popup_type_add-author")
 const placeNameInput = document.querySelector(".popup__input[name=place-name]")
 const linkPhotoInput = document.querySelector(".popup__input[name=photo]")
-const popupFormAddAuthor = document.querySelector(".popup__form[name=place]")
-const popupAddAuthorButtonClose = document.querySelector(
-  ".popup__button-close_type_add-author"
-)
+const popupAddAuthorButtonClose = document.querySelector(".popup__button-close_type_add-author")
 // Обявление данных попапа Zoom
 const popupOpenImage = document.querySelector(".popup_type_open-card")
 const popupOpenImageElementPhoto = document.querySelector(".popup__photo")
@@ -35,26 +30,52 @@ const popupOpenImageElementName = document.querySelector(".popup__place-name")
 const popupOpenImageButtonClose = document.querySelector(
   ".popup__button-close_type_open-card"
 )
+// Объявление кнопки закрытия для всех попапов (нодлист)
+const closeButtons = document.querySelectorAll('.popup__button-close');
 // Объявление данных карточек
 const sectionElements = document.querySelector(".elements")
 
 
 /*------------------Основные функции-----------------------*/
+
+// Закрытие попапа по клавише Escape
+function closePopupKey(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    сlosePopup(openedPopup)
+  }
+};
+
+// Закрытие попапа по нажатию на оверлей
+function closePopupOverlay(evt) {
+  if (evt.currentTarget === evt.target) {
+    const openedPopup = document.querySelector('.popup_opened');
+    сlosePopup(openedPopup)
+  }
+}
+
 // Открытие попапа
 function openPopup(popupElement) {
-  popupElement.classList.add("popup_opened")
+  popupElement.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupKey);
+  popupElement.addEventListener('click', closePopupOverlay);
 }
 // Закрытие попапа
 function сlosePopup(popupElement) {
-  popupElement.classList.remove("popup_opened")
+  popupElement.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closePopupKey);
+  popupElement.removeEventListener('click', closePopupOverlay);
 }
+
 // Сохранить данные в попапе
 function saveProfile(evt) {
   evt.preventDefault()
   userAuthorProfile.textContent = userAuthorInput.value
   userJobProfile.textContent = userJobInput.value
   сlosePopup(popupEditProfile)
-}
+};
+popupEditProfileForm.addEventListener("submit", saveProfile);
+
 // Открытие попапа Zoom
 function handleImgPopup(evt) {
   popupOpenImageElementPhoto.src = evt.target.src
@@ -88,7 +109,11 @@ const handleFormSubmitCard = (evt) => {
 }
 // Обработка валидации инпутов
 const forms = new FormValidation(selectors);
-const formValid = forms.enableValidation(); 
+const formValid = forms.enableValidation();
+
+// Создание карточки пользователем
+popupAddAuthor.addEventListener("submit", handleFormSubmitCard)
+
 
 /*------------------------Слушатели--------------------------*/
 
@@ -102,18 +127,7 @@ buttonEditProfile.addEventListener("click", () => {
 popupEditProfileButtonClose.addEventListener("click", () =>
   сlosePopup(popupEditProfile)
 )
-// Закрытие попапа editProfile через клик на оверлей
-popupEditProfile.addEventListener('click', (evt) => {
-  if (evt.currentTarget === evt.target) {
-    сlosePopup(popupEditProfile)
-  }
-})
-// Закрытие попапа editProfile через esc
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    сlosePopup(popupEditProfile)
-  }
-})
+
 buttonAddAuthor.addEventListener("click", () => {
   openPopup(popupAddAuthor)
 })
@@ -121,36 +135,11 @@ buttonAddAuthor.addEventListener("click", () => {
 popupAddAuthorButtonClose.addEventListener("click", () => {
   сlosePopup(popupAddAuthor)
 })
-// Закрытие попапа addAuthor через клик на оверлей
-popupAddAuthor.addEventListener('click', (evt) => {
-  if (evt.currentTarget === evt.target) {
-    сlosePopup(popupAddAuthor)
-  }
-})
-// Закрытие попапа addAuthor через esc
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    сlosePopup(popupAddAuthor)
-  }
-})
+
 // Закрытие попапа zoomCard через клик на buttonClose
 popupOpenImageButtonClose.addEventListener("click", () => {
   сlosePopup(popupOpenImage)
 })
-// Закрытие попапа zoomCard через клик на оверлей
-popupOpenImage.addEventListener('click', (evt) => {
-  if (evt.currentTarget === evt.target) {
-    сlosePopup(popupOpenImage)
-  }
-})
-// Закрытие попапа zoomCard через esc
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    сlosePopup(popupOpenImage)
-  }
-})
-// Сохранение данных в попапе
-popupEditProfileForm.addEventListener("submit", saveProfile)
-// Создание карточки пользователем
-popupAddAuthor.addEventListener("submit", handleFormSubmitCard)
+
+
 
