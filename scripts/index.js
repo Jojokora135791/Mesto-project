@@ -15,11 +15,10 @@ const popupEditProfile = document.querySelector(".popup_type_edit-profile")
 const popupEditProfileForm = document.querySelector(".popup__form[name=profile]")
 const userAuthorInput = document.querySelector(".popup__input[name=author]")
 const userJobInput = document.querySelector(".popup__input[name=job]")
-const popupEditProfileButtonClose = document.querySelector(
-  ".popup__button-close_type_edit-profile"
-)
+
 // Объявление данных попапа addAuthor
 const popupAddAuthor = document.querySelector(".popup_type_add-author")
+const popupAddAuthorForm = document.querySelector(".popup__form[name=place]")
 const placeNameInput = document.querySelector(".popup__input[name=place-name]")
 const linkPhotoInput = document.querySelector(".popup__input[name=photo]")
 const popupAddAuthorButtonClose = document.querySelector(".popup__button-close_type_add-author")
@@ -33,8 +32,8 @@ const popupOpenImageButtonClose = document.querySelector(
 // Объявление кнопки закрытия для всех попапов (нодлист)
 const closeButtons = document.querySelectorAll('.popup__button-close');
 // Объявление данных карточек
-const sectionElements = document.querySelector(".elements")
-
+const sectionElements = document.querySelector(".elements");
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 /*------------------Основные функции-----------------------*/
 
@@ -54,18 +53,33 @@ function closePopupOverlay(evt) {
   }
 }
 
+
 // Открытие попапа
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
   document.addEventListener('keydown', closePopupKey);
   popupElement.addEventListener('click', closePopupOverlay);
 }
+
 // Закрытие попапа
 function сlosePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
   document.removeEventListener('keydown', closePopupKey);
   popupElement.removeEventListener('click', closePopupOverlay);
 }
+
+// Функция добавления слушателя для крестика всех попапов
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => сlosePopup(popup))
+});
+
+// Добавление слушателя для кнопки "Редактировать профиль"
+buttonEditProfile.addEventListener("click", () => {
+  userAuthorInput.value = userAuthorProfile.textContent
+  userJobInput.value = userJobProfile.textContent
+  openPopup(popupEditProfile)
+})
 
 // Сохранить данные в попапе
 function saveProfile(evt) {
@@ -77,14 +91,13 @@ function saveProfile(evt) {
 popupEditProfileForm.addEventListener("submit", saveProfile);
 
 // Открытие попапа Zoom
-function handleImgPopup(evt) {
-  popupOpenImageElementPhoto.src = evt.target.src
-  popupOpenImageElementPhoto.alt = evt.target.alt
-  popupOpenImageElementName.textContent = evt.target.alt
-  openPopup(popupOpenImage)
+function handleImgPopup(name, link) {
+  popupOpenImageElementPhoto.src = link; 
+  popupOpenImageElementPhoto.alt = name;
+  popupOpenImageElementName.textContent = name;
+  openPopup(popupOpenImage);
 }
-// Вызов массива данных
-initialCards.forEach(createCard)
+
 // Создание карточки из массива
 function createCard(card) {
 
@@ -92,6 +105,10 @@ function createCard(card) {
   const cardElement = newCard.generateCard();
   sectionElements.prepend(cardElement)
 }
+
+// Вызов массива данных
+initialCards.forEach(createCard)
+
 // Создание карточки пользователем
 const handleFormSubmitCard = (evt) => {
   evt.preventDefault()
@@ -103,43 +120,29 @@ const handleFormSubmitCard = (evt) => {
 
   createCard(newCard)
   сlosePopup(popupAddAuthor)
-
-  placeNameInput.value = ''
-  linkPhotoInput.value =''
+  evt.target.reset();
 }
-// Обработка валидации инпутов
-const forms = new FormValidation(selectors);
-const formValid = forms.enableValidation();
 
 // Создание карточки пользователем
-popupAddAuthor.addEventListener("submit", handleFormSubmitCard)
+popupAddAuthorForm.addEventListener("submit", handleFormSubmitCard)
 
+formList.forEach((formElement) => {
+  const forms = new FormValidation(selectors, formElement);
+  forms.setDefaultButton();
+  forms.enableValidation();
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
 
-/*------------------------Слушатели--------------------------*/
-
-buttonEditProfile.addEventListener("click", () => {
-  userAuthorInput.value = userAuthorProfile.textContent
-  userJobInput.value = userJobProfile.textContent
-  openPopup(popupEditProfile)
-})
-
-// Закрытие попапа editProfile через клик на buttonClose
-popupEditProfileButtonClose.addEventListener("click", () =>
-  сlosePopup(popupEditProfile)
-)
-
+  // Добавление слушателя для кнопки "Добавить карточку"
 buttonAddAuthor.addEventListener("click", () => {
-  openPopup(popupAddAuthor)
-})
-// Закрытие попапа addAuthor через клик на buttonClose
-popupAddAuthorButtonClose.addEventListener("click", () => {
-  сlosePopup(popupAddAuthor)
-})
+  openPopup(popupAddAuthor);
+  popupAddAuthorForm.reset();
+  forms.setDefaultButton();
+  });
 
-// Закрытие попапа zoomCard через клик на buttonClose
-popupOpenImageButtonClose.addEventListener("click", () => {
-  сlosePopup(popupOpenImage)
-})
+});
+
 
 
 
