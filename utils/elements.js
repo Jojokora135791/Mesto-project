@@ -13,9 +13,7 @@ export const popupEditProfile = document.querySelector(
 export const popupEditProfileForm = document.querySelector(
   ".popup__form[name=profile]"
 );
-export const userAuthorInput = document.querySelector(
-  ".popup__input[name=author]"
-);
+export const userAuthorInput = document.querySelector(".popup__input[name=author]");
 export const userJobInput = document.querySelector(".popup__input[name=job]");
 
 // Объявление данных попапа addAuthor
@@ -32,14 +30,9 @@ export const linkPhotoInput = document.querySelector(
 
 // Обявление данных попапа Zoom
 export const popupOpenImage = document.querySelector(".popup_type_open-card");
-export const popupOpenImageElementPhoto =
-  document.querySelector(".popup__photo");
-export const popupOpenImageElementName =
-  document.querySelector(".popup__place-name");
-export const formList = Array.from(document.querySelectorAll(".popup__form"));
 
-// Объявление кнопки закрытия для всех попапов (нодлист)
-export const closeButtons = document.querySelectorAll(".popup__button-close");
+// Объявление массива форм
+export const formList = Array.from(document.querySelectorAll(".popup__form"));
 
 // Объявление данных карточек
 export const sectionElements = document.querySelector(".elements");
