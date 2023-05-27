@@ -25,7 +25,6 @@ export const initialCards = [
   },
 ];
 
-
 export const selectors = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
