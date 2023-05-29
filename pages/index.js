@@ -20,7 +20,6 @@ import {
 } from "../utils/elements.js";
 import Section from "../components/Section.js";
 import { Card } from "../components/Card.js";
-import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 /*------------------Основные функции-----------------------*/
@@ -101,25 +100,17 @@ function createCard(card) {
   defaultCardList.setCard(cardElement);
 }
 
-const popupWithFormAddAuthor = new Popup(popupAddAuthor);
-popupWithFormAddAuthor.setEventListeners();
 
-// Создание карточки пользователем
-const handleFormSubmitCard = (evt) => {
-  evt.preventDefault();
-
-  const newCard = {
-    name: placeNameInput.value,
-    link: linkPhotoInput.value,
+//  Создание карточки пользователем
+function handleFormSubmitCard (inputList) {
+  const cardData = {
+    link: inputList['link'],
+    name: inputList['title']
   };
-
-  createCard(newCard);
-  popupWithFormAddAuthor.closePopup();
-  evt.target.reset();
+  createCard(cardData);
 };
-
-// Создание карточки пользователем
-popupAddAuthorForm.addEventListener("submit", handleFormSubmitCard);
+const popupWithFormAddAuthor = new PopupWithForm(popupAddAuthor, handleFormSubmitCard);
+popupWithFormAddAuthor.setEventListeners();
 
 // Валидация форм
 formList.forEach((formElement) => {
