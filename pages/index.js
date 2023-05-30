@@ -2,117 +2,68 @@
 import { initialCards, selectors } from "../utils/constants.js";
 import { FormValidation } from "../components/FormValidation.js";
 import {
-  userAuthorProfile,
-  userJobProfile,
   buttonEditProfile,
   buttonAddAuthor,
-  popupEditProfile,
-  popupEditProfileForm,
   userAuthorInput,
   userJobInput,
-  popupAddAuthor,
   popupAddAuthorForm,
-  placeNameInput,
-  linkPhotoInput,
-  popupOpenImage,
-  sectionElements,
   formList,
 } from "../utils/elements.js";
 import Section from "../components/Section.js";
 import { Card } from "../components/Card.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
 /*------------------Основные функции-----------------------*/
 
-const popupWithFormEditProfile = new PopupWithForm(popupEditProfile, saveProfile);
+const userInfo = new UserInfo(".profile__author", ".profile__job")
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleFormSubmitProfile);
 popupWithFormEditProfile.setEventListeners();
 
-// Старые отработанные функции
-{
-  // // Закрытие попапа по клавише Escape
-  // function closePopupKey(evt) {
-  //   if (evt.key === "Escape") {
-  //     const openedPopup = document.querySelector(".popup_opened");
-  //     сlosePopup(openedPopup);
-  //   }
-  // }
-  // // Закрытие попапа по нажатию на оверлей
-  // function closePopupOverlay(evt) {
-  //   if (evt.currentTarget === evt.target) {
-  //     const openedPopup = document.querySelector(".popup_opened");
-  //     сlosePopup(openedPopup);
-  //   }
-  // }
-  // // Открытие попапа
-  // function openPopup(popupElement) {
-  //   popupElement.classList.add("popup_opened");
-  //   document.addEventListener("keydown", closePopupKey);
-  //   popupElement.addEventListener("click", closePopupOverlay);
-  // }
-  // // Закрытие попапа
-  // function сlosePopup(popupElement) {
-  //   popupElement.classList.remove("popup_opened");
-  //   document.removeEventListener("keydown", closePopupKey);
-  //   popupElement.removeEventListener("click", closePopupOverlay);
-  // }
-  // // Функция добавления слушателя для крестика всех попапов
-  // closeButtons.forEach((button) => {
-  //   const popup = button.closest(".popup");
-  //   button.addEventListener("click", () => сlosePopup(popup));
-  // });
-}
+function handleFormSubmitProfile(inputList) {
+  userInfo.setUserInfo(inputList['author'], inputList['job']);
+  popupWithFormEditProfile.closePopup();
+};
 
-// Добавление слушателя для кнопки "Редактировать профиль"
 buttonEditProfile.addEventListener("click", () => {
-  userAuthorInput.value = userAuthorProfile.textContent;
-  userJobInput.value = userJobProfile.textContent;
+  const list = userInfo.getUserInfo();
+  userAuthorInput.value = list['author'];
+  userJobInput.value = list['job'];
   popupWithFormEditProfile.openPopup();
 });
 
-// Сохранить данные в попапе
-function saveProfile(evt) {
-  evt.preventDefault();
-  userAuthorProfile.textContent = userAuthorInput.value;
-  userJobProfile.textContent = userJobInput.value;
-  popupWithFormEditProfile.closePopup();
-}
-// popupEditProfileForm.addEventListener("submit", saveProfile);
-
-const popupWithImage = new PopupWithImage(popupOpenImage);
+const popupWithImage = new PopupWithImage(".popup_type_open-card");
 popupWithImage.setEventListeners();
 
-// Открытие попапа Zoom
 function handleImgPopup(name, link) {
   popupWithImage.openPopup(name, link);
 }
 
 const defaultCardList = new Section(
-  { data: initialCards, renderer: (card) => createCard(card) },
-  sectionElements
+  { data: initialCards,
+    renderer: (card) => createCard(card) 
+  },
+  ".elements"
 );
-
 defaultCardList.renderCards();
 
-// Создание карточки из массива
 function createCard(card) {
   const newCard = new Card(card, "#elementTemplate", handleImgPopup);
   const cardElement = newCard.generateCard();
   defaultCardList.setCard(cardElement);
 }
 
+const popupWithFormAddAuthor = new PopupWithForm(".popup_type_add-author", handleFormSubmitCard);
+popupWithFormAddAuthor.setEventListeners();
 
-//  Создание карточки пользователем
-function handleFormSubmitCard (inputList) {
+function handleFormSubmitCard(inputList) {
   const cardData = {
     link: inputList['link'],
     name: inputList['title']
   };
   createCard(cardData);
 };
-const popupWithFormAddAuthor = new PopupWithForm(popupAddAuthor, handleFormSubmitCard);
-popupWithFormAddAuthor.setEventListeners();
 
-// Валидация форм
 formList.forEach((formElement) => {
   const forms = new FormValidation(selectors, formElement);
   forms.setDefaultButton();
@@ -121,7 +72,6 @@ formList.forEach((formElement) => {
     evt.preventDefault();
   });
 
-  // Добавление слушателя для кнопки "Добавить карточку"
   buttonAddAuthor.addEventListener("click", () => {
     popupWithFormAddAuthor.openPopup();
     popupAddAuthorForm.reset();

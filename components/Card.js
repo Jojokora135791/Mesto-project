@@ -5,14 +5,7 @@ export class Card {
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleImgPopup = handleImgPopup;
   }
-
-  _likeButton(item) {
-    item.target.classList.toggle("element__like_active");
-  }
-  _removeButton() {
-    this._cardButtonDelete.closest(".element").remove();
-  }
-
+  
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardTemplateSelector)
@@ -21,12 +14,20 @@ export class Card {
     return cardElement;
   }
 
+  _likeButton() {
+    this._cardButtonLike.classList.toggle("element__like_active");
+  }
+  _removeButton() {
+    this._cardButtonDelete.closest(".element").remove();
+  }
+
+
   _setEventLinstener() {
 
     this._cardButtonPhoto.addEventListener("click", () => this._handleImgPopup(this._name,this._link));
 
-    this._cardButtonLike.addEventListener("click", (evt) =>
-      this._likeButton(evt)
+    this._cardButtonLike.addEventListener("click", () =>
+      this._likeButton()
     );
 
     this._cardButtonDelete.addEventListener("click", () =>

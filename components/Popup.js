@@ -1,13 +1,12 @@
 export class Popup {
   constructor(selector) {
-    this._selector = selector;
+    this._selector = document.querySelector(selector);
     this._buttonClose = this._selector.querySelector(".popup__button-close");
   }
 
   // Закрытие попапа по клавише Escape
 
   _handleEscClose = (evt) => {
-    console.log(evt.key);
     if (evt.key === "Escape") {
       this.closePopup();
     }
