@@ -46,6 +46,7 @@ export class Card {
     this._cardName.textContent = this._name;
     this._cardPhoto.src = this._link;
     this._cardPhoto.alt = this._name;
+    
 
 
     this._setEventLinstener();

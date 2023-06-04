@@ -1,3 +1,5 @@
+// Импорт CSS
+import './pages.css';
 // Импорт всех классов и объектов
 import { initialCards, selectors } from "../utils/constants.js";
 import { FormValidation } from "../components/FormValidation.js";
@@ -58,8 +60,8 @@ popupWithFormAddAuthor.setEventListeners();
 
 function handleFormSubmitCard(inputList) {
   const cardData = {
-    link: inputList['link'],
-    name: inputList['title']
+    name: inputList['place-name'],
+    link: inputList['photo'],
   };
   createCard(cardData);
 };
