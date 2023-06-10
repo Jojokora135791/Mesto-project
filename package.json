@@ -1,5 +1,5 @@
 {
-  "name": "project_mesto",
+  "name": "Mesto-project",
   "version": "1.0.1",
   "description": ">Hello, everyone! This is my first pet project. I hope you find it interesting for yourself. :heart::heart::heart:",
   "main": "./src/pages/index.js",
