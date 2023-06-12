@@ -1,5 +1,5 @@
 {
-  "name": "Mesto-project",
+  "name": "mesto-project",
   "version": "1.0.1",
   "description": ">Hello, everyone! This is my first pet project. I hope you find it interesting for yourself. :heart::heart::heart:",
   "main": "./src/pages/index.js",
@@ -30,12 +30,5 @@
   "dependencies": {
     "core-js": "^3.30.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/Jojokora135791/Mesto-project.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Jojokora135791/Mesto-project/issues"
-  },
-  "homepage": "https://github.com/Jojokora135791/Mesto-project#readme"
+  "homepage": "https://github.com/Jojokora135791/Mesto-project/"
 }

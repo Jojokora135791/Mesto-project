@@ -7,32 +7,25 @@ export class Card {
   }
   
   _getTemplate() {
-    const cardElement = document
+    this._cardElement = document
       .querySelector(this._cardTemplateSelector)
       .content.querySelector(".element")
       .cloneNode(true);
-    return cardElement;
+    return this._cardElement;
   }
 
   _likeButton() {
     this._cardButtonLike.classList.toggle("element__like_active");
   }
   _removeButton() {
-    this._cardButtonDelete.closest(".element").remove();
+    this._cardElement.remove();
   }
 
 
   _setEventLinstener() {
-
     this._cardButtonPhoto.addEventListener("click", () => this._handleImgPopup(this._name,this._link));
-
-    this._cardButtonLike.addEventListener("click", () =>
-      this._likeButton()
-    );
-
-    this._cardButtonDelete.addEventListener("click", () =>
-      this._removeButton()
-    );
+    this._cardButtonLike.addEventListener("click", () => this._likeButton());
+    this._cardButtonDelete.addEventListener("click", () => this._removeButton());
   }
 
   generateCard() {
