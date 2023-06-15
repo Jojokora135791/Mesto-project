@@ -7,6 +7,7 @@ export default class Section {
 
   renderCards() {
     // Переберем массив _initialArray с начальными сообщениями
+    
     this._initialArray.forEach((card) => {
       this._renderer(card);
     });
