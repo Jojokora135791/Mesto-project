@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="./pages/pages.css" />
   </head>
   <body class="page">
-
     <header class="header">
       <div class="header__logo"></div>
     </header>
@@ -16,11 +15,13 @@
     <main>
       <section class="profile">
         <div class="profile__section">
-          <img
-            src="<%=require('./images/profile-image.png')%>"
-            alt="аватар"
-            class="profile__avatar"
-          />
+          <button class="profile__button-edit-avatar" type="button">
+            <img
+              src="<%=require('./images/profile-image.png')%>"
+              alt="аватар"
+              class="profile__avatar"
+            />
+          </button>
           <div class="profile__info">
             <div class="profile__author-block">
               <h2 class="profile__author">Жак-Ив Кусто</h2>
@@ -34,7 +35,6 @@
 
       <section class="elements">
         <template id="elementTemplate">
-
           <article class="element">
             <button class="element__button-photo" type="button">
               <img class="element__photo" />
@@ -42,10 +42,12 @@
             <div class="element__place">
               <h3 class="element__place-name"></h3>
               <button class="element__delete" type="button"></button>
-              <button class="element__like" type="button"></button>
+              <div class="element__likes">
+                <button class="element__like" type="button"></button>
+                <p class="element__number-like">1</p>
+              </div>
             </div>
           </article>
-
         </template>
       </section>
     </main>
@@ -60,35 +62,43 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <label class="popup__label">
             <input
-            name="author"
-            type="text"
-            class="popup__input"
-            placeholder="Имя автора"
-            minlength="2"
-            maxlength="40"
-            required
-            novalidate
+              name="author"
+              type="text"
+              class="popup__input"
+              placeholder="Имя автора"
+              minlength="2"
+              maxlength="40"
+              required
+              novalidate
             />
-            <span class="popup__input-error popup__input-error_type_author"></span>
+            <span
+              class="popup__input-error popup__input-error_type_author"
+            ></span>
           </label>
 
           <label class="popup__label">
             <input
-            name="job"
-            type="text"
-            class="popup__input"
-            placeholder="Занятие автора"
-            minlength="2"
-            maxlength="200"
-            required
-            novalidate
+              name="job"
+              type="text"
+              class="popup__input"
+              placeholder="Занятие автора"
+              minlength="2"
+              maxlength="200"
+              required
+              novalidate
             />
             <span class="popup__input-error popup__input-error_type_job"></span>
           </label>
-          <button class="popup__button-submit popup__button-submit_type_save" type="submit">Сохранить</button>
+          <button
+            class="popup__button-submit popup__button-submit_type_save"
+            type="submit"
+          >
+            Сохранить
+          </button>
         </form>
         <button
-          class="popup__button-close popup__button-close_type_edit-profile"></button>
+          class="popup__button-close popup__button-close_type_edit-profile"
+        ></button>
       </div>
     </div>
 
@@ -96,7 +106,7 @@
       <div class="popup__container">
         <form class="popup__form" name="place" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          
+
           <label class="popup__label">
             <input
               type="text"
@@ -122,21 +132,81 @@
             />
             <span class="popup__input-error popup__input-error_type_photo">
             </span>
-
           </label>
-          
-          <button class="popup__button-submit popup__button-submit_type_create" type="submit">Создать</button>
-          <button class="popup__button-close popup__button-close_type_add-author" type="button"></button>
+
+          <button
+            class="popup__button-submit popup__button-submit_type_create"
+            type="submit"
+          >
+            Создать
+          </button>
+          <button
+            class="popup__button-close popup__button-close_type_add-author"
+            type="button"
+          ></button>
         </form>
       </div>
     </div>
-  
+
     <div class="popup popup_type_open-card">
-        <div class="popup__card">
-          <img class="popup__photo"/>
-          <h3 class="popup__place-name"></h3>
-          <button class="popup__button-close popup__button-close_type_open-card" type="button"></button>
-        </div>
+      <div class="popup__card">
+        <img class="popup__photo" />
+        <h3 class="popup__place-name"></h3>
+        <button
+          class="popup__button-close popup__button-close_type_open-card"
+          type="button"
+        ></button>
+      </div>
     </div>
+
+    <div class="popup popup_type_delete-card">
+      <div class="popup__container">
+        <form class="popup__form" name="delete">
+        <h2 class="popup__title_delete-card">Вы уверены?</h2>
+        <button
+            class="popup__button-submit popup__button-submit_type_delete"
+            type="submit"
+          >
+            Да
+          </button>
+        <button
+          class="popup__button-close popup__button-close_type_delete-card"
+          type="button"
+        ></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_update-avatar">
+      <div class="popup__container">
+        <form class="popup__form" name="avatar" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+
+          <label class="popup__label popup__label_one">
+            <input
+              type="url"
+              class="popup__input"
+              name="avatar"
+              placeholder="Адрес фотокарточки"
+              required
+              novalidate
+            />
+            <span class="popup__input-error popup__input-error_type_update-avatar">
+            </span>
+          </label>
+          <button
+            class="popup__button-submit popup__button-submit_type_save"
+            type="submit"
+          >
+            Сохранить
+          </button>
+          <button
+            class="popup__button-close popup__button-close_type_update-avatar"
+            type="button"
+          ></button>
+        </form>
+      </div>
+    </div>
+
   </body>
 </html>
