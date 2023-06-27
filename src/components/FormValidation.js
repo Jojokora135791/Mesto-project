@@ -76,7 +76,7 @@ export class FormValidation {
       this._toggleButtonState();
     })
   }
-
+  
   enableValidation() {
     this._setEventListeners();
   }

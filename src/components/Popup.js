@@ -2,6 +2,8 @@ export class Popup {
   constructor(selector) {
     this._selector = document.querySelector(selector);
     this._buttonClose = this._selector.querySelector(".popup__button-close");
+    this._formElement = this._selector.querySelector('.popup__form');
+    this._buttonSubmit = this._selector.querySelector(".popup__button-submit");
   }
 
   // Закрытие попапа по клавише Escape
@@ -18,6 +20,11 @@ export class Popup {
     if (evt.currentTarget === evt.target) {
       this.closePopup();
     }
+  };
+
+  renderLoading(text) {
+    this._buttonSubmit.textContent = text;
+    console.log(this._buttonSubmit.textContent);
   };
 
   openPopup() {
