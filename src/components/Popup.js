@@ -24,7 +24,6 @@ export class Popup {
 
   renderLoading(text) {
     this._buttonSubmit.textContent = text;
-    console.log(this._buttonSubmit.textContent);
   };
 
   openPopup() {
